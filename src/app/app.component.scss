@@ -1,0 +1,12 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.answer-evaluation {
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 50px;
+  button {
+    flex-grow: 1;
+  }
+}
