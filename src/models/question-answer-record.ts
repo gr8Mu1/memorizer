@@ -1,3 +1,4 @@
+let hash = require('object-hash')
 export class QuestionAnswerRecord {
   private _question: string;
   private _answer: string;
@@ -23,5 +24,7 @@ export class QuestionAnswerRecord {
     this._answer = value;
   }
 
-
+  getHash(): string {
+    return hash(this, { encoding: 'base64' });
+  }
 }
