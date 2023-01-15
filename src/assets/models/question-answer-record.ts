@@ -1,4 +1,5 @@
-let hash = require('object-hash')
+import hash from "object-hash";
+
 export class QuestionAnswerRecord {
   private _question: string;
   private _answer: string;

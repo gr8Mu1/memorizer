@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {questionsAndAnswers} from "../assets/data/input-data";
+import {loadedExerciseState} from "../assets/data/input-data";
 
 @Component({
   selector: 'app-root',
@@ -8,5 +8,12 @@ import {questionsAndAnswers} from "../assets/data/input-data";
 })
 export class AppComponent {
   title = 'memorizer';
-  records = questionsAndAnswers;
+  exerciseState = loadedExerciseState;
+  curQuestion = loadedExerciseState.getCurrentRecord().question;
+  curAnswer = loadedExerciseState.getCurrentRecord().answer;
+
+  ngOnInit() {
+  }
+
+
 }

@@ -8,12 +8,18 @@ export class RecordSchedule {
   /**
    * How many times the question was answered satisfactory today (in a row).
    */
-  _successivelyToday: number = 0;
+  _successivelyToday: number;
 
   /**
    * From what date on the question will be asked again
    */
-  _askAgainDays: Date[] = [];
+  _askAgainDays: Date[];
+
+
+  constructor(successivelyToday?: number, askAgainDays?: Date[]) {
+    this._successivelyToday = successivelyToday ?? 0;
+    this._askAgainDays = askAgainDays ?? [];
+  }
 
   public answered(satisfactorily: boolean): void {
     if (satisfactorily) {
