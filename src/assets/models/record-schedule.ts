@@ -38,10 +38,10 @@ export class RecordSchedule {
   }
 
   practiseToday() {
-    let today = new Date().getMilliseconds();
+    let today = new Date();
     let resumeDate = (this._askAgainDays.length == 0) ?
-      0 : this._askAgainDays[this._askAgainDays.length - 1].getMilliseconds();
-    return (today > resumeDate)
+      today : this._askAgainDays[this._askAgainDays.length - 1];
+    return (today >= resumeDate)
   }
 
 }

@@ -11,6 +11,7 @@ export class AppComponent {
   exerciseState = loadedExerciseState;
   curQuestion = loadedExerciseState.getCurrentRecord().question;
   curAnswer = loadedExerciseState.getCurrentRecord().answer;
+  answerVisible = false;
 
   ngOnInit() {
   }
@@ -18,6 +19,10 @@ export class AppComponent {
   onRepeatClicked() {
     this.exerciseState.onUnsatisfactorilyAnswered();
     this.updateCurrentExercise();
+  }
+
+  toggleAnswerVisible() {
+    this.answerVisible = !this.answerVisible;
   }
 
   onHappyClicked() {
@@ -28,5 +33,6 @@ export class AppComponent {
   updateCurrentExercise(): void {
     this.curQuestion = loadedExerciseState.getCurrentRecord().question;
     this.curAnswer = loadedExerciseState.getCurrentRecord().answer;
+    this.answerVisible = false;
   }
 }

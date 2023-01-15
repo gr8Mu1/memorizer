@@ -7,12 +7,12 @@
     </button>
   </mat-toolbar>
   <section>
-    <div class="question-answer">
+    <div class="question-answer" (click)="toggleAnswerVisible()">
       <mat-card>
         <mat-card-content>{{curQuestion}}</mat-card-content>
       </mat-card>
       <mat-card>
-        <mat-card-content>{{curAnswer}}</mat-card-content>
+        <mat-card-content>{{answerVisible?curAnswer:''}}</mat-card-content>
       </mat-card>
     </div>
   </section>

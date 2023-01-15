@@ -31,8 +31,9 @@ export class ExerciseState {
 
   public onSatisfactorilyAnswered(): void {
     let correctInARow = this.getScheduleOfCurrentRecord().answeredSatisfactorily(true);
+    let keepInQueue = this.getScheduleOfCurrentRecord().practiseToday();
     let current = this.queue_.splice(0, 1);
-    if (this.getScheduleOfCurrentRecord().practiseToday()) {
+    if (keepInQueue) {
       let pos = this.newPositionFromAnswerCount(correctInARow);
       this.queue_.splice(pos, 0, current[0]);
     }
