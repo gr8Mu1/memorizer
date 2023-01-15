@@ -15,5 +15,18 @@ export class AppComponent {
   ngOnInit() {
   }
 
+  onRepeatClicked() {
+    this.exerciseState.onUnsatisfactorilyAnswered();
+    this.updateCurrentExercise();
+  }
 
+  onHappyClicked() {
+    this.exerciseState.onSatisfactorilyAnswered();
+    this.updateCurrentExercise();
+  }
+
+  updateCurrentExercise(): void {
+    this.curQuestion = loadedExerciseState.getCurrentRecord().question;
+    this.curAnswer = loadedExerciseState.getCurrentRecord().answer;
+  }
 }

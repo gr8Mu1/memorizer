@@ -21,7 +21,7 @@ export class RecordSchedule {
     this._askAgainDays = askAgainDays ?? [];
   }
 
-  public answered(satisfactorily: boolean): void {
+  public answeredSatisfactorily(satisfactorily: boolean): number {
     if (satisfactorily) {
       this._successivelyToday ++;
       if (this._successivelyToday == RecordSchedule.maxRepetitionsPerDay) {
@@ -34,6 +34,14 @@ export class RecordSchedule {
     } else {
       this._successivelyToday = 0;
     }
+    return this._successivelyToday;
+  }
+
+  practiseToday() {
+    let today = new Date().getMilliseconds();
+    let resumeDate = (this._askAgainDays.length == 0) ?
+      0 : this._askAgainDays[this._askAgainDays.length - 1].getMilliseconds();
+    return (today > resumeDate)
   }
 
 }

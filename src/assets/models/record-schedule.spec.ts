@@ -7,18 +7,18 @@ describe('SchedulingInformation', () => {
 
   it('should reset the count and change nothing else', () => {
     let s = new RecordSchedule();
-    s.answered(true);
-    s.answered(false);
+    s.answeredSatisfactorily(true);
+    s.answeredSatisfactorily(false);
     expect(s._successivelyToday).toEqual(0);
     expect(s._askAgainDays.length).toEqual(0);
   });
 
   it('should correctly count correct answers in a row', () => {
     let s = new RecordSchedule();
-    s.answered(true);
-    s.answered(true);
-    s.answered(false);
-    s.answered(true);
+    s.answeredSatisfactorily(true);
+    s.answeredSatisfactorily(true);
+    s.answeredSatisfactorily(false);
+    s.answeredSatisfactorily(true);
     expect(s._successivelyToday).toEqual(1);
   });
 
@@ -26,7 +26,7 @@ describe('SchedulingInformation', () => {
     let s = new RecordSchedule();
     for (let days = 1; days <= 4; days++) {
       for (let i = 0; i < 5; i++) {
-        s.answered(true);
+        s.answeredSatisfactorily(true);
       }
       expect(s._successivelyToday).toEqual(0);
       expect(s._askAgainDays.length).toEqual(days);
