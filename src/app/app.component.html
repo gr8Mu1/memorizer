@@ -1,25 +1,31 @@
-<mat-toolbar color="primary">
-  <span>Memorizer</span>
-  <span class="example-spacer"></span>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-    <mat-icon>menu</mat-icon>
-  </button>
-</mat-toolbar>
-<div>
-  <mat-card>
-    <mat-card-content>Question: 1as;fj asjk;sad asflsal;j sfda sas;aasl;</mat-card-content>
-  </mat-card>
-  <mat-card>
-    <mat-card-content>Answer: as;fj asjk;sad asflsal;j sfda sas;aasl;</mat-card-content>
-  </mat-card>
-</div>
-<section>
-  <div class="answer-evaluation">
-    <button mat-raised-button>
-      <mat-icon>repeat</mat-icon>
+<div class="main-container">
+  <mat-toolbar color="primary">
+    <span>Memorizer</span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
     </button>
-    <button mat-raised-button color="primary">
-      <mat-icon>thumb_up</mat-icon></button>
-  </div>
-</section>
+  </mat-toolbar>
+  <section>
+    <div class="question-answer">
+      <mat-card>
+        <mat-card-content>Question: 1as;fj asjk;sad asflsal;j sfda sas;aasl;</mat-card-content>
+      </mat-card>
+      <mat-card>
+        <mat-card-content>Answer: as;fj asjk;sad asflsal;j sfda sas;aasl;</mat-card-content>
+      </mat-card>
+    </div>
+  </section>
+
+  <section>
+    <div class="answer-evaluation">
+      <button mat-raised-button>
+        <mat-icon>repeat</mat-icon>
+      </button>
+      <button mat-raised-button color="primary">
+        <mat-icon>thumb_up</mat-icon></button>
+    </div>
+  </section>
+</div>
+
 
