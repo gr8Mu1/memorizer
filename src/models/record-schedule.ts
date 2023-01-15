@@ -1,4 +1,4 @@
-export class SchedulingInformation {
+export class RecordSchedule {
   /**
    * After that many correct answers in a row postpone the question for another day
    * TODO later make this configurable in the app or a config file
@@ -18,7 +18,7 @@ export class SchedulingInformation {
   public answered(satisfactorily: boolean): void {
     if (satisfactorily) {
       this._successivelyToday ++;
-      if (this._successivelyToday == SchedulingInformation.maxRepetitionsPerDay) {
+      if (this._successivelyToday == RecordSchedule.maxRepetitionsPerDay) {
         this._successivelyToday = 0;
         let askAgain = new Date();
         askAgain.setDate(askAgain.getDate() + Math.pow(3, this._askAgainDays.length));

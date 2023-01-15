@@ -1,12 +1,12 @@
-import { SchedulingInformation } from './scheduling-information';
+import { RecordSchedule } from './record-schedule';
 
 describe('SchedulingInformation', () => {
   it('should create an instance', () => {
-    expect(new SchedulingInformation()).toBeTruthy();
+    expect(new RecordSchedule()).toBeTruthy();
   });
 
   it('should reset the count and change nothing else', () => {
-    let s = new SchedulingInformation();
+    let s = new RecordSchedule();
     s.answered(true);
     s.answered(false);
     expect(s._successivelyToday).toEqual(0);
@@ -14,7 +14,7 @@ describe('SchedulingInformation', () => {
   });
 
   it('should correctly count correct answers in a row', () => {
-    let s = new SchedulingInformation();
+    let s = new RecordSchedule();
     s.answered(true);
     s.answered(true);
     s.answered(false);
@@ -23,7 +23,7 @@ describe('SchedulingInformation', () => {
   });
 
   it('should reset the count and add a date', () => {
-    let s = new SchedulingInformation();
+    let s = new RecordSchedule();
     for (let days = 1; days <= 4; days++) {
       for (let i = 0; i < 5; i++) {
         s.answered(true);
