@@ -12,14 +12,14 @@
         <mat-card-content>{{curQuestion}}</mat-card-content>
       </mat-card>
       <mat-card>
-        <mat-card-content>{{answerVisible?curAnswer:''}}</mat-card-content>
+        <mat-card-content>{{answerVisible ? curAnswer : ''}}</mat-card-content>
       </mat-card>
     </div>
   </section>
 
   <section>
     <div class="answer-evaluation">
-      <button mat-raised-button (click)="onRepeatClicked()">
+      <button mat-raised-button (click)="onUnhappyClicked()">
         <mat-icon>repeat</mat-icon>
       </button>
       <button mat-raised-button color="primary" (click)="onHappyClicked()">

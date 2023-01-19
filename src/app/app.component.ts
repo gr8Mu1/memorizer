@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import {loadedExerciseState} from "../assets/data/input-data";
+import {loadedAppState} from "../assets/data/input-data";
+import {AppState} from "../assets/models/app-state";
 
 @Component({
   selector: 'app-root',
@@ -8,17 +9,19 @@ import {loadedExerciseState} from "../assets/data/input-data";
 })
 export class AppComponent {
   title = 'memorizer';
-  exerciseState = loadedExerciseState;
-  curQuestion = loadedExerciseState.getCurrentRecord().question;
-  curAnswer = loadedExerciseState.getCurrentRecord().answer;
+  appState: AppState;
+  curQuestion: string;
+  curAnswer: string;
   answerVisible = false;
 
   ngOnInit() {
+    this.appState = loadedAppState;
+    this.updateCurrentTask();
   }
 
-  onRepeatClicked() {
-    this.exerciseState.onUnsatisfactorilyAnswered();
-    this.updateCurrentExercise();
+  onUnhappyClicked() {
+    this.appState.processAnswerValidation(false);
+    this.updateCurrentTask()
   }
 
   toggleAnswerVisible() {
@@ -26,13 +29,14 @@ export class AppComponent {
   }
 
   onHappyClicked() {
-    this.exerciseState.onSatisfactorilyAnswered();
-    this.updateCurrentExercise();
+    this.appState.processAnswerValidation(true);
+    this.updateCurrentTask();
   }
 
-  updateCurrentExercise(): void {
-    this.curQuestion = loadedExerciseState.getCurrentRecord().question;
-    this.curAnswer = loadedExerciseState.getCurrentRecord().answer;
+  updateCurrentTask(): void {
+    let currentTask = this.appState.getCurrentTask();
+    this.curQuestion = currentTask.question;
+    this.curAnswer = currentTask.answer;
     this.answerVisible = false;
   }
 }
