@@ -29,7 +29,7 @@ export class Queue {
   public updateFromAnswer(answerOk: boolean): string {
     let currentElement = this._queue.splice(0, 1)[0];
     if (answerOk) {
-      if (currentElement.correctInARow++ >= this.maxPerDay) {
+      if (++currentElement.correctInARow >= this.maxPerDay) {
         return currentElement.taskHash;
       } else {
         let pos = this.newPositionFromAnswerCount(currentElement.correctInARow);
