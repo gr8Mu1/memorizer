@@ -1,8 +1,8 @@
 export class PauseUntil {
-  _dateByTaskHash: Map<string, DateAndCount> = new Map();
+  _dateAndCountByTaskHash: Map<string, DateAndCount> = new Map();
 
   constructor(dateByTaskHash: Map<string, DateAndCount>) {
-    this._dateByTaskHash = dateByTaskHash;
+    this._dateAndCountByTaskHash = dateByTaskHash;
   }
 
   public static createEmpty(): PauseUntil {
@@ -10,13 +10,20 @@ export class PauseUntil {
   }
 
   public pause(taskHash: string) {
-    let pauseCount = (this._dateByTaskHash.has(taskHash)) ?
-      this._dateByTaskHash.get(taskHash).count: 0;
+    let pauseCount = (this._dateAndCountByTaskHash.has(taskHash)) ?
+      this._dateAndCountByTaskHash.get(taskHash).count: 0;
     let daysToAdd = Math.pow(3, pauseCount);
     let pauseUntilDate = new Date();
     pauseUntilDate.setDate(pauseUntilDate.getDate() + daysToAdd);
     pauseUntilDate.setHours(5);
-    this._dateByTaskHash.set(taskHash, {date: pauseUntilDate, count: pauseCount})
+    this._dateAndCountByTaskHash.set(taskHash, {date: pauseUntilDate, count: pauseCount})
+  }
+
+  public isAvailableNow(taskHash: string) {
+    let today = new Date();
+    return (this._dateAndCountByTaskHash.has(taskHash))
+      ? this._dateAndCountByTaskHash.get(taskHash).date < today
+      : true;
   }
 }
 
