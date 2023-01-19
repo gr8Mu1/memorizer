@@ -1,7 +1,8 @@
-import { AllTasks } from './all-tasks';
+import {AllTasks, Task} from './all-tasks';
 
 describe('ExerciseTasks', () => {
   it('should create an instance', () => {
-    expect(new AllTasks()).toBeTruthy();
+    let m: Map<string, Task> = new Map();
+    expect(new AllTasks(m)).toBeTruthy();
   });
 });

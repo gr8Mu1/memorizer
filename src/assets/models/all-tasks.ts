@@ -9,11 +9,11 @@ export class AllTasks {
 
   public importQuestionAnswerPairs(tasks: Task[]): void {
     for (const task of tasks) {
-      this._taskByHash.set(this.computeHash(task), task);
+      this._taskByHash.set(AllTasks.computeHash(task), task);
     }
   }
 
-  private computeHash(task: Task): string {
+  public static computeHash(task: Task): string {
     return hash(task, { encoding: 'base64' });
   }
 

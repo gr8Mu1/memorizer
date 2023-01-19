@@ -16,7 +16,7 @@ export class PauseUntil {
     let pauseUntilDate = new Date();
     pauseUntilDate.setDate(pauseUntilDate.getDate() + daysToAdd);
     pauseUntilDate.setHours(5);
-    this._dateAndCountByTaskHash.set(taskHash, {date: pauseUntilDate, count: pauseCount})
+    this._dateAndCountByTaskHash.set(taskHash, {date: pauseUntilDate, count: ++pauseCount})
   }
 
   public isAvailableNow(taskHash: string) {
