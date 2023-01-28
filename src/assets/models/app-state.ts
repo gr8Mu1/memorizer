@@ -30,7 +30,7 @@ export class AppState {
   }
 
   public importQuestionAnswerPairs(allTasks: Task[]) {
-    this._allTasks.importQuestionAnswerPairs(allTasks);
+    this._allTasks.addTasks(allTasks);
   }
 
   public parseAndImportQuestionAnswerPairs(qaPairs: string) {
@@ -41,7 +41,7 @@ export class AppState {
       tasks.push({question: qna[0], answer: qna[1]}
       );
     });
-    this._allTasks.importQuestionAnswerPairs(tasks);
+    this._allTasks.addTasks(tasks);
   }
 
   updateQueue() {

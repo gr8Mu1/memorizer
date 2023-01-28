@@ -7,7 +7,7 @@ export class TaskCollection {
     this._taskByHash = taskByHash;
   }
 
-  public importQuestionAnswerPairs(tasks: Task[]): void {
+  public addTasks(tasks: Task[]): void {
     for (const task of tasks) {
       this._taskByHash.set(TaskCollection.computeHash(task), task);
     }

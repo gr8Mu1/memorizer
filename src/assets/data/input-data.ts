@@ -18,7 +18,7 @@ function mockLoadAppState(len: number): AppState {
   }
 
   let allTasks = new TaskCollection(new Map<string, Task>());
-  allTasks.importQuestionAnswerPairs(tasksToImport);
+  allTasks.addTasks(tasksToImport);
 
   let queue = Queue.buildFromTasks(allTasks);
 
