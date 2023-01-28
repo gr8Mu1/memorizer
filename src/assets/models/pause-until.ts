@@ -26,6 +26,10 @@ export class PauseUntil {
       ? this._dateAndCountByTaskHash.get(taskHash).date < today
       : true);
   }
+
+  replaceData(_dateAndCountByTaskHash: Map<string, DateAndCount>) {
+    this._dateAndCountByTaskHash = _dateAndCountByTaskHash;
+  }
 }
 
 export interface DateAndCount {

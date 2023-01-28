@@ -50,8 +50,9 @@
       <p>import question-answer pairs from a *.txt file. Please write one pair per line and separate the question from the answer using the following separator: " --- "</p>
       <input type="file" (change)="importTxtFile($event)">
       <hr>
-      <p>Save a text file:</p>
-      <button (click)="save()">Save</button>
+      <p>import/export app state</p>
+      <button (click)="exportAppState()">Export appState</button>
+      <input type="file" (change)="importAppState($event)">
     </div>
   </section>
 </div>
