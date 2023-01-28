@@ -13,6 +13,12 @@ export class TaskCollection {
     }
   }
 
+  public removeTasks(tasks: Task[]): void {
+    for (const task of tasks) {
+      this._taskByHash.delete(TaskCollection.computeHash(task));
+    }
+  }
+
   public static computeHash(task: Task): string {
     return hash(task, { encoding: 'base64' });
   }
