@@ -27,6 +27,7 @@ export class Queue {
    * been dropped from the queue
    */
   public updateFromAnswer(answerOk: boolean): string {
+    if (this._queue.length == 0) return null;
     let currentElement = this._queue.splice(0, 1)[0];
     if (answerOk) {
       if (++currentElement.correctInARow >= this.maxPerDay) {
@@ -48,6 +49,11 @@ export class Queue {
   private newPositionFromAnswerCount(x: number): number {
     return 1 + x * (x + 1) / 2;
   }
+
+  public clear() {
+    this._queue = [];
+  }
+
 }
 
 export interface HashAndRepetitions {
