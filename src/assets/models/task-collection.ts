@@ -9,17 +9,17 @@ export class TaskCollection {
 
   public addTasks(tasks: Task[]): void {
     for (const task of tasks) {
-      this._taskByHash.set(TaskCollection.computeHash(task), task);
+      this._taskByHash.set(this.computeHash(task), task);
     }
   }
 
   public removeTasks(tasks: Task[]): void {
     for (const task of tasks) {
-      this._taskByHash.delete(TaskCollection.computeHash(task));
+      this._taskByHash.delete(this.computeHash(task));
     }
   }
 
-  public static computeHash(task: Task): string {
+  private computeHash(task: Task): string {
     return hash(task, { encoding: 'base64' });
   }
 

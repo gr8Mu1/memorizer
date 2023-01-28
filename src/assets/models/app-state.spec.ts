@@ -12,9 +12,10 @@ describe('AppState', () => {
     let innerQ: HashAndRepetitions[] = [];
     let innerAllTasks = new Map<string, Task>();
     for (let i = 0; i < 4; i++) {
-      innerQ.push({taskHash: `${i}`, correctInARow:0})
+      let hash = `${i}`;
+      innerQ.push({taskHash: hash, correctInARow:0})
       let task: Task = {question: `q${i}`, answer: `a${i}`};
-      innerAllTasks.set(TaskCollection.computeHash(task), task);
+      innerAllTasks.set(hash, task);
     }
     let appState = new AppState(new TaskCollection(innerAllTasks), new Queue(innerQ), new PauseUntil(new Map()));
     appState.processAnswerValidation(true);
@@ -31,9 +32,10 @@ describe('AppState', () => {
     let innerQ: HashAndRepetitions[] = [];
     let innerAllTasks = new Map<string, Task>();
     for (let i = 0; i < 4; i++) {
-      innerQ.push({taskHash: `${i}`, correctInARow:4})
+      let hash = `${i}`;
+      innerQ.push({taskHash: hash, correctInARow:4})
       let task: Task = {question: `q${i}`, answer: `a${i}`};
-      innerAllTasks.set(TaskCollection.computeHash(task), task);
+      innerAllTasks.set(hash, task);
     }
     let appState = new AppState(new TaskCollection(innerAllTasks), new Queue(innerQ), new PauseUntil(new Map()));
     appState.processAnswerValidation(true);
