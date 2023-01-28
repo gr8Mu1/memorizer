@@ -9,17 +9,6 @@ export class Queue {
     this._queue = queue;
   }
 
-  public static buildFromTasks(allTasks: TaskCollection): Queue {
-    let hashAndRep: HashAndRepetitions[] = [];
-    allTasks.getAllHashes().forEach(key => hashAndRep.push({taskHash: key, correctInARow: 0}));
-
-    return new Queue(hashAndRep);
-  }
-
-  public static buildFromTasksAndPauseUntil(allTasks: TaskCollection, pauseUntil: PauseUntil): Queue {
-    return null; // TODO implement
-  }
-
   /**
    *
    * @param answerOk
@@ -42,16 +31,31 @@ export class Queue {
     return null;
   }
 
+  /**
+   * Get the hash of the current task
+   */
   public getCurrentHash(): string {
+    // TODO what if _queue is empty?
     return this._queue[0].taskHash;
-  }
-
-  private newPositionFromAnswerCount(x: number): number {
-    return 1 + x * (x + 1) / 2;
   }
 
   public clear() {
     this._queue = [];
+  }
+
+  public addHashes(hashes: string[]): Queue {
+    let hashAndRep: HashAndRepetitions[] = [];
+    hashes.forEach(key => hashAndRep.push({taskHash: key, correctInARow: 0}));
+
+    return new Queue(hashAndRep);
+  }
+
+  public static buildFromTasksAndPauseUntil(allTasks: TaskCollection, pauseUntil: PauseUntil): Queue {
+    return null; // TODO implement
+  }
+
+  private newPositionFromAnswerCount(x: number): number {
+    return 1 + x * (x + 1) / 2;
   }
 
 }

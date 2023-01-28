@@ -19,11 +19,12 @@ export class PauseUntil {
     this._dateAndCountByTaskHash.set(taskHash, {date: pauseUntilDate, count: ++pauseCount})
   }
 
-  public isAvailableNow(taskHash: string) {
+  public filterAvailableNow(taskHashes: string[]) {
+    // TODO write a test
     let today = new Date();
-    return (this._dateAndCountByTaskHash.has(taskHash))
+    return taskHashes.filter((taskHash) => (this._dateAndCountByTaskHash.has(taskHash))
       ? this._dateAndCountByTaskHash.get(taskHash).date < today
-      : true;
+      : true);
   }
 }
 
