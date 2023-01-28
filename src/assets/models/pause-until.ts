@@ -19,7 +19,7 @@ export class PauseUntil {
     this._dateAndCountByTaskHash.set(taskHash, {date: pauseUntilDate, count: ++pauseCount})
   }
 
-  public filterAvailableNow(taskHashes: string[]) {
+  public filterAvailable(taskHashes: string[]): string[] {
     // TODO write a test
     let today = new Date();
     return taskHashes.filter((taskHash) => (this._dateAndCountByTaskHash.has(taskHash))

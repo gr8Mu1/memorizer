@@ -49,7 +49,7 @@ export class AppComponent {
       reader.onloadend = () => {
         this.contents = reader.result as string;
         this.appState.parseAndImportQuestionAnswerPairs(reader.result as string);
-        this.appState.updateQueue();
+        this.updateCurrentTask();
       };
       reader.readAsText(event.target.files[0]);
     }
@@ -61,7 +61,6 @@ export class AppComponent {
   }
 
   clearQueue() {
-    this.appState.clearQueue();
     // TODO properly implement, update appState, ngIf -> no tasks loaded
   }
 }

@@ -19,13 +19,13 @@ describe('AppState', () => {
     }
     let appState = new AppState(new TaskCollection(innerAllTasks), new Queue(innerQ), new PauseUntil(new Map()));
     appState.processAnswerValidation(true);
-    expect(appState._queue._queue[0].taskHash).toEqual('1');
-    expect(appState._queue._queue[0].correctInARow).toEqual(0);
-    expect(appState._queue._queue[1].taskHash).toEqual('2');
-    expect(appState._queue._queue[2].taskHash).toEqual('0');
-    expect(appState._queue._queue[2].correctInARow).toEqual(1);
-    expect(appState._queue._queue[3].taskHash).toEqual('3');
-    expect(appState._queue._queue.length).toEqual(4);
+    expect(appState._queue._hashAndRepetitions[0].taskHash).toEqual('1');
+    expect(appState._queue._hashAndRepetitions[0].correctInARow).toEqual(0);
+    expect(appState._queue._hashAndRepetitions[1].taskHash).toEqual('2');
+    expect(appState._queue._hashAndRepetitions[2].taskHash).toEqual('0');
+    expect(appState._queue._hashAndRepetitions[2].correctInARow).toEqual(1);
+    expect(appState._queue._hashAndRepetitions[3].taskHash).toEqual('3');
+    expect(appState._queue._hashAndRepetitions.length).toEqual(4);
   });
 
   it('should drop one element from the queue', () => {
@@ -39,10 +39,10 @@ describe('AppState', () => {
     }
     let appState = new AppState(new TaskCollection(innerAllTasks), new Queue(innerQ), new PauseUntil(new Map()));
     appState.processAnswerValidation(true);
-    expect(appState._queue._queue[0].taskHash).toEqual('1');
-    expect(appState._queue._queue[0].correctInARow).toEqual(4);
-    expect(appState._queue._queue[1].taskHash).toEqual('2');
-    expect(appState._queue._queue[2].taskHash).toEqual('3');
+    expect(appState._queue._hashAndRepetitions[0].taskHash).toEqual('1');
+    expect(appState._queue._hashAndRepetitions[0].correctInARow).toEqual(4);
+    expect(appState._queue._hashAndRepetitions[1].taskHash).toEqual('2');
+    expect(appState._queue._hashAndRepetitions[2].taskHash).toEqual('3');
     expect(appState._pauseUntil._dateAndCountByTaskHash.get('0').count).toEqual(1);
     expect(appState._pauseUntil.isAvailableNow('0')).toBeFalse();
     expect(appState._pauseUntil.isAvailableNow('1')).toBeTrue();

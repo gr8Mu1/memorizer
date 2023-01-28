@@ -20,7 +20,8 @@ function mockLoadAppState(len: number): AppState {
   let allTasks = new TaskCollection(new Map<string, Task>());
   allTasks.addTasks(tasksToImport);
 
-  let queue = new Queue([]).addHashes(allTasks.getAllHashes());
+  let queue = new Queue([]);
+  queue.addHashes(allTasks.getAllHashes());
 
   return new AppState(allTasks, queue, PauseUntil.createEmpty())
 }

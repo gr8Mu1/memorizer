@@ -20,31 +20,21 @@ export class AppState {
     }
   }
 
-  public clearQueue() {
-    this._queue.clear();
-    // TODO
-  }
-
-  public getCurrentTask(): Task {
-    return this._allTasks.getTaskByHash(this._queue.getCurrentHash());
-  }
-
-  public importQuestionAnswerPairs(allTasks: Task[]) {
-    this._allTasks.addTasks(allTasks);
-  }
-
   public parseAndImportQuestionAnswerPairs(qaPairs: string) {
     let tasks:Task[] = [];
     const lines = qaPairs.split(/\r?\n|\r|\n/g);
     lines.forEach(line =>  {
       let qna = line.split(" --- ");
+      if ('' === qna[0].trim()) return;
       tasks.push({question: qna[0], answer: qna[1]}
       );
     });
-    this._allTasks.addTasks(tasks);
+    let addedHashes = this._allTasks.addTasks(tasks);
+    let filteredHashes = this._pauseUntil.filterAvailable(addedHashes);
+    this._queue.addHashes(filteredHashes, true); // TODO add UI element to select priority
   }
 
-  updateQueue() {
-    // TODO
+  public getCurrentTask(): Task {
+    return this._allTasks.getTaskByHash(this._queue.getCurrentHash());
   }
 }

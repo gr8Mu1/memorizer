@@ -1,6 +1,4 @@
 import {HashAndRepetitions, Queue} from './queue';
-import {TaskCollection} from "./task-collection";
-import {loadedAppState} from "../data/input-data";
 
 describe('Queue', () => {
   it('should create an instance', () => {
@@ -17,10 +15,10 @@ describe('Queue', () => {
       ]
     )
     q.updateFromAnswer(false);
-    expect(q._queue[0].taskHash).toEqual('2');
-    expect(q._queue[1].taskHash).toEqual('1');
-    expect(q._queue[2].taskHash).toEqual('3');
-    expect(q._queue[2].correctInARow).toEqual(0);
+    expect(q._hashAndRepetitions[0].taskHash).toEqual('2');
+    expect(q._hashAndRepetitions[1].taskHash).toEqual('1');
+    expect(q._hashAndRepetitions[2].taskHash).toEqual('3');
+    expect(q._hashAndRepetitions[2].correctInARow).toEqual(0);
   });
 
   it('should move to pos2', () => {
@@ -32,10 +30,10 @@ describe('Queue', () => {
       ]
     )
     q.updateFromAnswer(true);
-    expect(q._queue[0].taskHash).toEqual('2');
-    expect(q._queue[1].taskHash).toEqual('3');
-    expect(q._queue[2].taskHash).toEqual('1');
-    expect(q._queue[2].correctInARow).toEqual(1);
+    expect(q._hashAndRepetitions[0].taskHash).toEqual('2');
+    expect(q._hashAndRepetitions[1].taskHash).toEqual('3');
+    expect(q._hashAndRepetitions[2].taskHash).toEqual('1');
+    expect(q._hashAndRepetitions[2].correctInARow).toEqual(1);
   });
 
   it('should remove first element', () => {
@@ -47,10 +45,10 @@ describe('Queue', () => {
     let removed = q.updateFromAnswer(true);
 
     expect(removed).toEqual('0');
-    expect(q._queue[0].taskHash).toEqual('1');
-    expect(q._queue[1].taskHash).toEqual('2');
-    expect(q._queue[2].taskHash).toEqual('3');
-    expect(q._queue.length).toEqual(3);
+    expect(q._hashAndRepetitions[0].taskHash).toEqual('1');
+    expect(q._hashAndRepetitions[1].taskHash).toEqual('2');
+    expect(q._hashAndRepetitions[2].taskHash).toEqual('3');
+    expect(q._hashAndRepetitions.length).toEqual(3);
 
   });
 });

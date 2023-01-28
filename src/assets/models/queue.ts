@@ -1,12 +1,9 @@
-import {TaskCollection} from "./task-collection";
-import {PauseUntil} from "./pause-until";
-
 export class Queue {
    maxPerDay = 5; // TODO inject from configuration
-  _queue: HashAndRepetitions[];
+  _hashAndRepetitions: HashAndRepetitions[];
 
-  constructor(queue: HashAndRepetitions[]) {
-    this._queue = queue;
+  constructor(hashAndRepetitions: HashAndRepetitions[]) {
+    this._hashAndRepetitions = hashAndRepetitions;
   }
 
   /**
@@ -16,17 +13,17 @@ export class Queue {
    * been dropped from the queue
    */
   public updateFromAnswer(answerOk: boolean): string {
-    if (this._queue.length == 0) return null;
-    let currentElement = this._queue.splice(0, 1)[0];
+    if (this._hashAndRepetitions.length == 0) return null;
+    let currentElement = this._hashAndRepetitions.splice(0, 1)[0];
     if (answerOk) {
       if (++currentElement.correctInARow >= this.maxPerDay) {
         return currentElement.taskHash;
       } else {
         let pos = this.newPositionFromAnswerCount(currentElement.correctInARow);
-        this._queue.splice(pos, 0, currentElement);
+        this._hashAndRepetitions.splice(pos, 0, currentElement);
       }
     } else {
-      this._queue.splice(1, 0, currentElement);
+      this._hashAndRepetitions.splice(1, 0, currentElement);
     }
     return null;
   }
@@ -36,22 +33,22 @@ export class Queue {
    */
   public getCurrentHash(): string {
     // TODO what if _queue is empty?
-    return this._queue[0].taskHash;
+    return this._hashAndRepetitions[0].taskHash;
   }
 
   public clear() {
-    this._queue = [];
+    this._hashAndRepetitions = [];
   }
 
-  public addHashes(hashes: string[]): Queue {
-    let hashAndRep: HashAndRepetitions[] = [];
-    hashes.forEach(key => hashAndRep.push({taskHash: key, correctInARow: 0}));
+  public addHashes(hashes: string[], highPriority: boolean=false) {
+    let added: HashAndRepetitions[] = [];
+    hashes.forEach(key => added.push({taskHash: key, correctInARow: 0}));
 
-    return new Queue(hashAndRep);
-  }
-
-  public static buildFromTasksAndPauseUntil(allTasks: TaskCollection, pauseUntil: PauseUntil): Queue {
-    return null; // TODO implement
+    if (highPriority){
+      this._hashAndRepetitions = [...added, ...this._hashAndRepetitions];
+    } else {
+      this._hashAndRepetitions = [...this._hashAndRepetitions, ...added];
+    }
   }
 
   private newPositionFromAnswerCount(x: number): number {
