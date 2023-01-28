@@ -26,7 +26,7 @@ export class AppState {
   }
 
   public getCurrentTask(): Task {
-    return this._allTasks.getTask(this._queue.getCurrentHash());
+    return this._allTasks.getTaskByHash(this._queue.getCurrentHash());
   }
 
   public importQuestionAnswerPairs(allTasks: Task[]) {

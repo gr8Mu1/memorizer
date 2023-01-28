@@ -21,7 +21,7 @@ export class TaskCollection {
     return this._taskByHash;
   }
 
-  public getTask(hash: string): Task {
+  public getTaskByHash(hash: string): Task {
     return this._taskByHash.get(hash);
   }
 }
