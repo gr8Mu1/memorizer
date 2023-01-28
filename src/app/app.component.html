@@ -29,15 +29,26 @@
   </section>
   <hr>
   <section>
-    <h2>developer section (GUI will follow...)</h2>
+    <h2>Readme</h2>
     <div>
-      <button (click)="clearQueue()">clear queue</button>
-<!--      <button (click)="importTxtFile()">import question-answer pairs from *.txt file</button>-->
-
-      <p>Open a text file:</p>
+      <p>The aim of this small demo app is to practise question-answer pairs efficiently.
+        The algorithm schedules the questions for you (1) per day and (2) over several days.
+        Once you've answered a question satisfactorily 5x in a row
+        (i.e. with other questions in between, but this answer you knew each time you've been asked),
+        then it will be postponed for another day.
+      </p>
+      <p>Also the questions in the queue of this day will be asked less and less frequently,
+        the more times you answered them correctly in a row. The number of days to postpone
+        a question follows powers of 3
+      </p>
+    </div>
+  </section>
+  <hr>
+  <section>
+    <h2>developer section (GUI and UX improvements will (hopefully) follow soon...)</h2>
+    <div>
+      <p>import question-answer pairs from a *.txt file. Please write one pair per line and separate the question from the answer using the following separator: " --- "</p>
       <input type="file" (change)="importTxtFile($event)">
-      <p *ngIf="contents">Contents:</p>
-      <pre>{{contents}}</pre>
       <hr>
       <p>Save a text file:</p>
       <button (click)="save()">Save</button>

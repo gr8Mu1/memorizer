@@ -59,8 +59,4 @@ export class AppComponent {
     const blob = new Blob(['Hello, World!']);
     saveAs(blob, 'out.txt');
   }
-
-  clearQueue() {
-    // TODO properly implement, update appState, ngIf -> no tasks loaded
-  }
 }
