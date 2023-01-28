@@ -1,4 +1,4 @@
-import {AllTasks} from "./all-tasks";
+import {TaskCollection} from "./task-collection";
 import {PauseUntil} from "./pause-until";
 
 export class Queue {
@@ -9,14 +9,14 @@ export class Queue {
     this._queue = queue;
   }
 
-  public static buildFromTasks(allTasks: AllTasks): Queue {
+  public static buildFromTasks(allTasks: TaskCollection): Queue {
     let hashAndRep: HashAndRepetitions[] = [];
     Array.from(allTasks.tasks.keys()).forEach(key => hashAndRep.push({taskHash: key, correctInARow: 0}));
 
     return new Queue(hashAndRep);
   }
 
-  public static buildFromTasksAndPauseUntil(allTasks: AllTasks, pauseUntil: PauseUntil): Queue {
+  public static buildFromTasksAndPauseUntil(allTasks: TaskCollection, pauseUntil: PauseUntil): Queue {
     return null; // TODO implement
   }
 

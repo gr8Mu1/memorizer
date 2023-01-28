@@ -1,6 +1,6 @@
 import hash from "object-hash";
 
-export class AllTasks {
+export class TaskCollection {
   private readonly _taskByHash: Map<string, Task> = new Map();
 
   constructor(taskByHash: Map<string, Task>) {
@@ -9,7 +9,7 @@ export class AllTasks {
 
   public importQuestionAnswerPairs(tasks: Task[]): void {
     for (const task of tasks) {
-      this._taskByHash.set(AllTasks.computeHash(task), task);
+      this._taskByHash.set(TaskCollection.computeHash(task), task);
     }
   }
 

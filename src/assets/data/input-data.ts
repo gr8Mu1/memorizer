@@ -1,6 +1,6 @@
 import {AppState} from "../models/app-state";
-import {AllTasks} from "../models/all-tasks";
-import {Task} from "../models/all-tasks";
+import {TaskCollection} from "../models/task-collection";
+import {Task} from "../models/task-collection";
 import {Queue} from "../models/queue";
 import {PauseUntil} from "../models/pause-until";
 
@@ -17,7 +17,7 @@ function mockLoadAppState(len: number): AppState {
     tasksToImport.push({question: `q${i}`, answer: `a${i}`});
   }
 
-  let allTasks = new AllTasks(new Map<string, Task>());
+  let allTasks = new TaskCollection(new Map<string, Task>());
   allTasks.importQuestionAnswerPairs(tasksToImport);
 
   let queue = Queue.buildFromTasks(allTasks);

@@ -1,13 +1,13 @@
-import {AllTasks, Task} from "./all-tasks";
+import {TaskCollection, Task} from "./task-collection";
 import {Queue} from "./queue";
 import {PauseUntil} from "./pause-until";
 
 export class AppState {
-  _allTasks: AllTasks;
+  _allTasks: TaskCollection;
   _queue: Queue;
   _pauseUntil: PauseUntil;
 
-  constructor(allTasks: AllTasks, queue: Queue, pauseUntil: PauseUntil) {
+  constructor(allTasks: TaskCollection, queue: Queue, pauseUntil: PauseUntil) {
     this._allTasks = allTasks;
     this._queue = queue;
     this._pauseUntil = pauseUntil;

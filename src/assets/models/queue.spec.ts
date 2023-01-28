@@ -1,5 +1,5 @@
 import {HashAndRepetitions, Queue} from './queue';
-import {AllTasks} from "./all-tasks";
+import {TaskCollection} from "./task-collection";
 import {loadedAppState} from "../data/input-data";
 
 describe('Queue', () => {

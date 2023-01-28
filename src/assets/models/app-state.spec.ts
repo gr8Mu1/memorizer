@@ -1,6 +1,6 @@
 import { AppState } from './app-state';
 import {HashAndRepetitions, Queue} from "./queue";
-import {AllTasks, Task} from "./all-tasks";
+import {TaskCollection, Task} from "./task-collection";
 import {PauseUntil} from "./pause-until";
 
 describe('AppState', () => {
@@ -14,9 +14,9 @@ describe('AppState', () => {
     for (let i = 0; i < 4; i++) {
       innerQ.push({taskHash: `${i}`, correctInARow:0})
       let task: Task = {question: `q${i}`, answer: `a${i}`};
-      innerAllTasks.set(AllTasks.computeHash(task), task);
+      innerAllTasks.set(TaskCollection.computeHash(task), task);
     }
-    let appState = new AppState(new AllTasks(innerAllTasks), new Queue(innerQ), new PauseUntil(new Map()));
+    let appState = new AppState(new TaskCollection(innerAllTasks), new Queue(innerQ), new PauseUntil(new Map()));
     appState.processAnswerValidation(true);
     expect(appState._queue._queue[0].taskHash).toEqual('1');
     expect(appState._queue._queue[0].correctInARow).toEqual(0);
@@ -33,9 +33,9 @@ describe('AppState', () => {
     for (let i = 0; i < 4; i++) {
       innerQ.push({taskHash: `${i}`, correctInARow:4})
       let task: Task = {question: `q${i}`, answer: `a${i}`};
-      innerAllTasks.set(AllTasks.computeHash(task), task);
+      innerAllTasks.set(TaskCollection.computeHash(task), task);
     }
-    let appState = new AppState(new AllTasks(innerAllTasks), new Queue(innerQ), new PauseUntil(new Map()));
+    let appState = new AppState(new TaskCollection(innerAllTasks), new Queue(innerQ), new PauseUntil(new Map()));
     appState.processAnswerValidation(true);
     expect(appState._queue._queue[0].taskHash).toEqual('1');
     expect(appState._queue._queue[0].correctInARow).toEqual(4);
