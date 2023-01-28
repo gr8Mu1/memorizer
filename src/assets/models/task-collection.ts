@@ -17,8 +17,8 @@ export class TaskCollection {
     return hash(task, { encoding: 'base64' });
   }
 
-  get tasks(): Map<string, Task> {
-    return this._taskByHash;
+  public getAllHashes(): string[] {
+    return Array.from(this._taskByHash.keys());
   }
 
   public getTaskByHash(hash: string): Task {

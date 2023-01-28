@@ -11,7 +11,7 @@ export class Queue {
 
   public static buildFromTasks(allTasks: TaskCollection): Queue {
     let hashAndRep: HashAndRepetitions[] = [];
-    Array.from(allTasks.tasks.keys()).forEach(key => hashAndRep.push({taskHash: key, correctInARow: 0}));
+    allTasks.getAllHashes().forEach(key => hashAndRep.push({taskHash: key, correctInARow: 0}));
 
     return new Queue(hashAndRep);
   }
