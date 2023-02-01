@@ -39,6 +39,11 @@ export class AppComponent {
 
   updateCurrentTask(): void {
     let currentTask = this.appState.getCurrentTask();
+    if (!currentTask) {
+      this.curQuestion = null;
+      this.curAnswer = null;
+      return;
+    }
     this.curQuestion = currentTask.question;
     this.curAnswer = currentTask.answer;
     this.answerVisible = false;

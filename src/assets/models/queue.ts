@@ -32,7 +32,7 @@ export class Queue {
    * Get the hash of the current task
    */
   public getCurrentHash(): string {
-    // TODO what if _queue is empty?
+    if (this._hashAndRepetitions.length == 0) return null;
     return this._hashAndRepetitions[0].taskHash;
   }
 

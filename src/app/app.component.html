@@ -6,7 +6,10 @@
       <mat-icon>menu</mat-icon>
     </button>
   </mat-toolbar>
-  <section>
+  <section *ngIf="!curQuestion">
+    <p>No questions-answer pairs are currently available. Please add some by importing a text file.</p>
+  </section>
+  <section *ngIf="curQuestion">
     <div class="question-answer" (click)="toggleAnswerVisible()">
       <mat-card>
         <mat-card-content>{{curQuestion}}</mat-card-content>
@@ -15,9 +18,6 @@
         <mat-card-content>{{answerVisible ? curAnswer : ''}}</mat-card-content>
       </mat-card>
     </div>
-  </section>
-
-  <section>
     <div class="answer-evaluation">
       <button mat-raised-button (click)="onUnhappyClicked()">
         <mat-icon>repeat</mat-icon>
@@ -51,7 +51,7 @@
       <input type="file" (change)="importTxtFile($event)">
       <hr>
       <p>import/export app state</p>
-      <button (click)="exportAppState()">Export appState</button>
+      <button mat-raised-button (click)="exportAppState()">Export appState</button>
       <input type="file" (change)="importAppState($event)">
     </div>
   </section>
