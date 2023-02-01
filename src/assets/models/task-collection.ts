@@ -11,8 +11,10 @@ export class TaskCollection {
     let addedHashes: string[] = [];
     for (const task of tasks) {
       let taskHash = this.computeHash(task);
+      if (!this._taskByHash.has(taskHash)) {
+        addedHashes.push(taskHash);
+      }
       this._taskByHash.set(taskHash, task);
-      addedHashes.push(taskHash);
     }
     return addedHashes;
   }
