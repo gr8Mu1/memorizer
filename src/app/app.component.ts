@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {loadedAppState} from "../assets/data/input-data";
 import {AppState} from "../assets/models/app-state";
 import {saveAs} from "file-saver";
 import {Queue} from "../assets/models/queue";
 import {Task, TaskCollection} from "../assets/models/task-collection";
 import {PauseUntil} from "../assets/models/pause-until";
+import {Tag} from "../assets/models/tag-collection";
 
 @Component({
   selector: 'app-root',
@@ -17,10 +18,13 @@ export class AppComponent {
   curQuestion: string;
   curAnswer: string;
   answerVisible = false;
+  availableTags: Tag[] = [];
+  selectedTags: Tag[] = [];
+  tagsOfCurrentTask: Tag[] = [];
 
   ngOnInit() {
     this.appState = loadedAppState;
-    this.updateCurrentTask();
+    this.updateViewModel();
   }
 
   onUnhappyClicked() {
@@ -29,7 +33,7 @@ export class AppComponent {
     } else {
       this.appState.processAnswerValidation(false);
     }
-    this.updateCurrentTask()
+    this.updateViewModel()
   }
 
   toggleAnswerVisible() {
@@ -42,10 +46,10 @@ export class AppComponent {
     } else {
       this.appState.processAnswerValidation(true);
     }
-    this.updateCurrentTask();
+    this.updateViewModel();
   }
 
-  updateCurrentTask(): void {
+  updateViewModel(): void {
     let currentTask = this.appState.getCurrentTask();
     if (!currentTask) {
       this.curQuestion = null;
@@ -55,14 +59,30 @@ export class AppComponent {
     this.curQuestion = currentTask.question;
     this.curAnswer = currentTask.answer;
     this.answerVisible = false;
+    this.tagsOfCurrentTask = this.appState.getTagsOfCurrentTask();
+    this.availableTags = this.appState.getAvailableTags();
   }
 
-  importTxtFile(event: Event) {
+  public importQuestionAnswerPairsFromTxtFile(event: Event, withTags:boolean = false) {
+    let tags: Tag[] = (withTags) ? [this.availableTags[0], this.availableTags[1]] : [];
+    // let tags: Tag[] = (withTags) ? this.selectedTags : []; // TODO
+
     if (event.target instanceof HTMLInputElement && event.target.files.length > 0) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        this.appState.parseAndImportQuestionAnswerPairs(reader.result as string);
-        this.updateCurrentTask();
+        this.appState.parseAndImportQuestionAnswerPairsWithTags(reader.result as string, tags);
+        this.updateViewModel();
+      };
+      reader.readAsText(event.target.files[0]);
+    }
+  }
+
+  importTagsFromTxtFile(event: Event) {
+    if (event.target instanceof HTMLInputElement && event.target.files.length > 0) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        this.appState.parseAndImportTags(reader.result as string);
+        this.updateViewModel();
       };
       reader.readAsText(event.target.files[0]);
     }
@@ -89,11 +109,18 @@ export class AppComponent {
         let pauseUntil: PauseUntil = new PauseUntil(new Map());
         pauseUntil.replaceData(imported._pauseUntil._dateAndCountByTaskHash);
         this.appState._pauseUntil = pauseUntil;
-        this.updateCurrentTask();
+        this.updateViewModel();
       };
       reader.readAsText(event.target.files[0]);
     }
   }
+
+  prioritizeQueue() {
+    this.appState.prioritizeTags([this.availableTags[0], this.availableTags[1]]);
+    // this.appState.prioritizeTags(this.selectedTags); // TODO
+    this.updateViewModel();
+  }
+
 }
 
 function replacer(key, value) {

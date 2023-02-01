@@ -3,6 +3,7 @@ import {TaskCollection} from "../models/task-collection";
 import {Task} from "../models/task-collection";
 import {Queue} from "../models/queue";
 import {PauseUntil} from "../models/pause-until";
+import {TagCollection} from "../models/tag-collection";
 
 export {loadedAppState}
 
@@ -23,7 +24,7 @@ function mockLoadAppState(len: number): AppState {
   let queue = new Queue([]);
   queue.addHashes(allTasks.getAllHashes());
 
-  return new AppState(allTasks, queue, PauseUntil.createEmpty())
+  return new AppState(allTasks, queue, PauseUntil.createEmpty(), TagCollection.createEmpty())
 }
 
 let loadedAppState: AppState = mockLoadAppState(18);

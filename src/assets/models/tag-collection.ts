@@ -1,5 +1,4 @@
 import hash from "object-hash";
-import {Task} from "./task-collection";
 
 /**
  * Knows all available tags and what tags have been added to each task
@@ -10,8 +9,12 @@ export class TagCollection {
   _tagsByExerciseHash: Map<string, Set<string>> = new Map();
   _tagsByHash: Map<string, Tag> = new Map();
 
-  public addTag(shortName: string, description: string) {
-    let tag: Tag = {shortName, description};
+  constructor(tagsByExerciseHash: Map<string, Set<string>>, tagsByHash: Map<string, Tag>) {
+    this._tagsByExerciseHash = tagsByExerciseHash;
+    this._tagsByHash = tagsByHash;
+  }
+
+  public addTag(tag: Tag) {
     this._tagsByHash.set(this.computeHash(tag), tag);
   }
 
@@ -20,18 +23,23 @@ export class TagCollection {
     this._tagsByHash.delete(tagHash);
   }
 
-  public addTagToTask(exeHash: string, tagHash: string) {
+  public addTagsToTask(exeHash: string, tagHashes: string[]) {
     if (!this._tagsByExerciseHash.has(exeHash)) {
       this._tagsByExerciseHash.set(exeHash, new Set<string>());
     }
-    this._tagsByExerciseHash.get(exeHash).add(tagHash);
+    let tagsForThisTask = this._tagsByExerciseHash.get(exeHash);
+    for (let tagHash of tagHashes) {
+      tagsForThisTask.add(tagHash);
+    }
   }
 
-  public removeTagFromTask(exeHash: string, tagHash: string) {
+  public removeTagsFromTask(exeHash: string, tagHashes: string[]) {
     if (!this._tagsByExerciseHash.has(exeHash)) {
       return;
     }
-    this._tagsByExerciseHash.get(exeHash).delete(tagHash);
+    for (let tagHash of tagHashes) {
+      this._tagsByExerciseHash.get(exeHash).delete(tagHash);
+    }
   }
 
   public removeAllTagsFromTask(exeHash: string) {
@@ -47,11 +55,11 @@ export class TagCollection {
     }
   }
 
-  public filterByTag(exeHashes: string[], tagHash: string): [string[], string[]] {
+  public filterByTags(exeHashes: string[], tagHashes: string[]): [string[], string[]] {
     let hasTag: string[] = [];
     let doesNotHave: string[] = []
     for (let exeHash of exeHashes) {
-      if (this._tagsByExerciseHash.get(exeHash).has(tagHash)) {
+      if (this.hasAll(this._tagsByExerciseHash.get(exeHash), tagHashes)) {
         hasTag.push(exeHash);
       } else {
         doesNotHave.push(exeHash);
@@ -60,12 +68,50 @@ export class TagCollection {
     return [hasTag, doesNotHave];
   }
 
+  private hasAll(tagHashesOfThisTask: Set<string>, requiredTagHashes: string[]): boolean {
+    if (!tagHashesOfThisTask) {
+      return false;
+    }
+    for (const tagHash of requiredTagHashes) {
+      if (!tagHashesOfThisTask.has(tagHash)) return false;
+    }
+
+    return true;
+  }
+
   private computeHash(tag: Tag): string {
     return hash(tag, { encoding: 'base64' });
   }
 
   getAllTags(): Tag[] {
     return Array.from(this._tagsByHash.values());
+  }
+
+  public static createEmpty(): TagCollection {
+    return new TagCollection(new Map(), new Map());
+  }
+
+  /**
+   * Typically the AppState translates a `Tag[]` to a `string[]`
+   */
+  getHashesFor(tags: Tag[]): string[] {
+    let hashes: string[] = [];
+    for (const tag of tags) {
+      hashes.push(this.computeHash(tag));
+    }
+    return hashes;
+  }
+
+  getTagsOfTask(exeHash: string): Tag[] {
+    let tagHashes = this._tagsByExerciseHash.get(exeHash);
+    if (!tagHashes) {
+      return [];
+    }
+    let tags: Tag[] = [];
+    for (let tagHash of tagHashes.values()) {
+      tags.push(this._tagsByHash.get(tagHash));
+    }
+    return tags;
   }
 }
 

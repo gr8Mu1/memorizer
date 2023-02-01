@@ -42,6 +42,9 @@ export class Queue {
   }
 
   public addHashes(hashes: string[], highPriority: boolean=false) {
+    if (!hashes) {
+      return;
+    }
     let added: HashAndRepetitions[] = [];
     hashes.forEach(key => added.push({taskHash: key, correctInARow: 0}));
 
@@ -61,8 +64,8 @@ export class Queue {
    * @param now should only be provided in unit tests
    */
   public updateNextRebuildDate(now: Date = new Date()) {
-    let tomorrow3pm = new Date(now.setHours(-3,0,0));
-    tomorrow3pm = new Date(tomorrow3pm.setHours(27, 0));
+    let tomorrow3pm = new Date(now.getTime() - 3*60*60*1000);
+    tomorrow3pm = new Date(tomorrow3pm.setHours(27, 0, 0));
     this._nextRebuildDate = tomorrow3pm;
   }
 
