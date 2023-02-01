@@ -1,16 +1,19 @@
 import {TaskCollection, Task} from "./task-collection";
 import {Queue} from "./queue";
 import {PauseUntil} from "./pause-until";
+import {TagCollection} from "./tag-collection";
 
 export class AppState {
   _allTasks: TaskCollection;
   _queue: Queue;
   _pauseUntil: PauseUntil;
+  _allTags: TagCollection;
 
-  constructor(allTasks: TaskCollection, queue: Queue, pauseUntil: PauseUntil) {
+  constructor(allTasks: TaskCollection, queue: Queue, pauseUntil: PauseUntil, allTags: TagCollection) {
     this._allTasks = allTasks;
     this._queue = queue;
     this._pauseUntil = pauseUntil;
+    this._allTags = allTags;
   }
 
   public processAnswerValidation(correctlyAnsered: boolean) {
@@ -47,5 +50,13 @@ export class AppState {
     let filteredHashes = this._pauseUntil.filterAvailable(allHashes);
     this._queue.addHashes(filteredHashes, true);
     this._queue.updateNextRebuildDate();
+  }
+
+  public prioritizeTag(tagHash: string) {
+    let allHashesInQueue = this._queue.getAllHashes();
+    let front: string[];
+    let rear: string[];
+    [front, rear] = this._allTags.filterByTag(allHashesInQueue, tagHash);
+    this._queue.rearrangeQueue(front, rear);
   }
 }

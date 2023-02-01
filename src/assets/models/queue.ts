@@ -72,6 +72,35 @@ export class Queue {
     }
     return this._nextRebuildDate < new Date();
   }
+
+  public getAllHashes(): string[] {
+    let hashes: string[] = [];
+    for (let element of this._hashAndRepetitions) {
+      hashes.push(element.taskHash);
+    }
+    return hashes;
+  }
+
+  /**
+   * re-arranges the queue, assuming the input is a correct partition
+   * of the elements currently residing in the queue
+   * @param frontHashes
+   * @param rearHashes
+   */
+  public rearrangeQueue(frontHashes: string[], rearHashes: string[]) {
+    let queueMap: Map<string, HashAndRepetitions> = new Map();
+    for (let element of this._hashAndRepetitions) {
+      queueMap.set(element.taskHash, element);
+    }
+    let hashRep: HashAndRepetitions[] = [];
+    for (let hash of frontHashes) {
+      hashRep.push(queueMap.get(hash))
+    }
+    for (let hash of rearHashes) {
+      hashRep.push(queueMap.get(hash))
+    }
+    this._hashAndRepetitions = hashRep;
+  }
 }
 
 export interface HashAndRepetitions {
