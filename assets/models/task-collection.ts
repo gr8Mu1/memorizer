@@ -7,14 +7,18 @@ export class TaskCollection {
     this._taskByHash = taskByHash;
   }
 
-  public addTasks(tasks: Task[]): string[] {
+  public addTasks(tasks: Task[]): [string[], string[]] {
     let addedHashes: string[] = [];
+    let allHashesTriedToAdd: string[] = [];
     for (const task of tasks) {
       let taskHash = this.computeHash(task);
+      allHashesTriedToAdd.push(taskHash);
+      if (!this._taskByHash.has(taskHash)) {
+        addedHashes.push(taskHash);
+      }
       this._taskByHash.set(taskHash, task);
-      addedHashes.push(taskHash);
     }
-    return addedHashes;
+    return [addedHashes, allHashesTriedToAdd];
   }
 
   public removeTasks(tasks: Task[]): void {
