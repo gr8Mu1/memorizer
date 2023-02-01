@@ -37,4 +37,15 @@ export class AppState {
   public getCurrentTask(): Task {
     return this._allTasks.getTaskByHash(this._queue.getCurrentHash());
   }
+
+  public shouldRebuildQueueForToday():boolean {
+    return this._queue.shouldRebuildQueueForToday();
+  }
+
+  public rebuildQueue() {
+    let allHashes = this._allTasks.getAllHashes();
+    let filteredHashes = this._pauseUntil.filterAvailable(allHashes);
+    this._queue.addHashes(filteredHashes, true);
+    this._queue.updateNextRebuildDate();
+  }
 }

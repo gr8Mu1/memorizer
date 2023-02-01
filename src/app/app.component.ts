@@ -24,7 +24,11 @@ export class AppComponent {
   }
 
   onUnhappyClicked() {
-    this.appState.processAnswerValidation(false);
+    if (this.appState.shouldRebuildQueueForToday()) {
+      this.appState.rebuildQueue();
+    } else {
+      this.appState.processAnswerValidation(false);
+    }
     this.updateCurrentTask()
   }
 
@@ -33,7 +37,11 @@ export class AppComponent {
   }
 
   onHappyClicked() {
-    this.appState.processAnswerValidation(true);
+    if (this.appState.shouldRebuildQueueForToday()) {
+      this.appState.rebuildQueue();
+    } else {
+      this.appState.processAnswerValidation(true);
+    }
     this.updateCurrentTask();
   }
 

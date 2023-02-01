@@ -1,6 +1,7 @@
 export class Queue {
    maxPerDay = 5; // TODO inject from configuration
-  _hashAndRepetitions: HashAndRepetitions[];
+  private _nextRebuildDate: Date;
+  private _hashAndRepetitions: HashAndRepetitions[];
 
   constructor(hashAndRepetitions: HashAndRepetitions[]) {
     this._hashAndRepetitions = hashAndRepetitions;
@@ -55,6 +56,22 @@ export class Queue {
     return 1 + x * (x + 1) / 2;
   }
 
+  /**
+   * Returns in general tomorrow at 3pm, but today 3pm if `now` is between midnight and 3pm
+   * @param now should only be provided in unit tests
+   */
+  public updateNextRebuildDate(now: Date = new Date()) {
+    let tomorrow3pm = new Date(now.setHours(-3,0,0));
+    tomorrow3pm = new Date(tomorrow3pm.setHours(27, 0));
+    this._nextRebuildDate = tomorrow3pm;
+  }
+
+  public shouldRebuildQueueForToday(): boolean {
+    if (!this._nextRebuildDate) {
+      return true;
+    }
+    return this._nextRebuildDate < new Date();
+  }
 }
 
 export interface HashAndRepetitions {
