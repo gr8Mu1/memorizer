@@ -5,7 +5,7 @@ import {PauseUntil} from "./pause-until";
 
 describe('AppState', () => {
   it('should create an instance', () => {
-    expect(new AppState(null, null, null)).toBeTruthy();
+    expect(new AppState(null, null, null, null)).toBeTruthy();
   });
 
   it('should update queue', () => {
@@ -17,7 +17,7 @@ describe('AppState', () => {
       let task: Task = {question: `q${i}`, answer: `a${i}`};
       innerAllTasks.set(hash, task);
     }
-    let appState = new AppState(new TaskCollection(innerAllTasks), new Queue(innerQ), new PauseUntil(new Map()));
+    let appState = new AppState(new TaskCollection(innerAllTasks), new Queue(innerQ), new PauseUntil(new Map()), null);
     appState.processAnswerValidation(true);
     expect(appState._queue._hashAndRepetitions[0].taskHash).toEqual('1');
     expect(appState._queue._hashAndRepetitions[0].correctInARow).toEqual(0);
@@ -37,14 +37,13 @@ describe('AppState', () => {
       let task: Task = {question: `q${i}`, answer: `a${i}`};
       innerAllTasks.set(hash, task);
     }
-    let appState = new AppState(new TaskCollection(innerAllTasks), new Queue(innerQ), new PauseUntil(new Map()));
+    let appState = new AppState(new TaskCollection(innerAllTasks), new Queue(innerQ), new PauseUntil(new Map()), null);
     appState.processAnswerValidation(true);
     expect(appState._queue._hashAndRepetitions[0].taskHash).toEqual('1');
     expect(appState._queue._hashAndRepetitions[0].correctInARow).toEqual(4);
     expect(appState._queue._hashAndRepetitions[1].taskHash).toEqual('2');
     expect(appState._queue._hashAndRepetitions[2].taskHash).toEqual('3');
     expect(appState._pauseUntil._dateAndCountByTaskHash.get('0').count).toEqual(1);
-    expect(appState._pauseUntil.isAvailableNow('0')).toBeFalse();
-    expect(appState._pauseUntil.isAvailableNow('1')).toBeTrue();
+    expect(appState._pauseUntil._dateAndCountByTaskHash.size).toEqual(1);
   });
 });

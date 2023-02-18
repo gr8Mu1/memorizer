@@ -1,7 +1,7 @@
 export class Queue {
    maxPerDay = 5; // TODO inject from configuration
   private _nextRebuildDate: Date;
-  private _hashAndRepetitions: HashAndRepetitions[];
+  _hashAndRepetitions: HashAndRepetitions[];
 
   constructor(hashAndRepetitions: HashAndRepetitions[]) {
     this._hashAndRepetitions = hashAndRepetitions;
