@@ -52,15 +52,18 @@
     <h2>developer section (GUI and UX improvements will (hopefully) follow soon...)</h2>
     <div>
       <p>import question-answer pairs from a *.txt file. Please write one pair per line and separate the question from the answer using the following separator: " --- "</p>
-      <input type="file" (change)="importQuestionAnswerPairsFromTxtFile($event)">
+      <button type="button" mat-raised-button (click)="importQuestionAnswerFileInput.click()">Import Question-Answer Pairs</button>
+      <input hidden (change)="importQuestionAnswerPairsFromTxtFile($event)" #importQuestionAnswerFileInput type="file">
       <hr>
       <p>import/export app state</p>
-      <button mat-raised-button (click)="exportAppState()">Export appState</button>
-      <input type="file" (change)="importAppState($event)">
+      <button mat-raised-button (click)="exportAppState()">Export AppState</button>
+      <button type="button" mat-raised-button (click)="importAppStateFileInput.click()">Import AppState</button>
+      <input hidden (change)="importAppState($event)" #importAppStateFileInput type="file">
       <hr>
       <h3>Tags</h3>
       <p>Import tags from *.txt file. Each line defines a tag: shortName --- description</p>
-      <input type="file" (change)="importTagsFromTxtFile($event)">
+      <button type="button" mat-raised-button (click)="importTagsFileInput.click()">Import Tags</button>
+      <input hidden (change)="importTagsFromTxtFile($event)" #importTagsFileInput type="file">
       <mat-selection-list #selected [(ngModel)]="selectedTags">
         <mat-list-option *ngFor="let tag of availableTags">
           {{tag.shortName}} &#8594; {{tag.description}}
@@ -70,11 +73,12 @@
       <p>
         Options selected: {{selected.selectedOptions.selected.length}}
       </p>
-      <p>Import txt file with adding the selected tags</p>
-      <input type="file" (change)="importQuestionAnswerPairsFromTxtFile($event, true)">
+      <p>Import txt file and add the selected tags</p>
+      <button type="button" mat-raised-button (click)="importPairsWithSelectedTags.click()">Import Pairs with Selected Tags</button>
+      <input hidden (change)="importQuestionAnswerPairsFromTxtFile($event, true)" #importPairsWithSelectedTags type="file">
 
-      <button mat-raised-button (click)="prioritizeQueue()">Prioritize queue according to selected tags</button>
-      <button mat-raised-button (click)="forceQueueRebuild()">Force queue rebuild</button>
+      <button mat-raised-button (click)="prioritizeQueue()">Prioritize Queue According to Selected Tags</button>
+      <button mat-raised-button (click)="forceQueueRebuild()">Force Queue Rebuild</button>
 
     </div>
   </section>
