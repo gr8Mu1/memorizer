@@ -17,7 +17,7 @@ describe('AppState', () => {
       let task: Task = {question: `q${i}`, answer: `a${i}`};
       innerAllTasks.set(hash, task);
     }
-    let appState = new AppState(new TaskCollection(innerAllTasks), new Queue(innerQ), new PauseUntil(new Map()), null);
+    let appState = new AppState(new TaskCollection(innerAllTasks), new Queue(innerQ, null), new PauseUntil(new Map()), null);
     appState.processAnswerValidation(true);
     expect(appState._queue._hashAndRepetitions[0].taskHash).toEqual('1');
     expect(appState._queue._hashAndRepetitions[0].correctInARow).toEqual(0);
@@ -37,7 +37,7 @@ describe('AppState', () => {
       let task: Task = {question: `q${i}`, answer: `a${i}`};
       innerAllTasks.set(hash, task);
     }
-    let appState = new AppState(new TaskCollection(innerAllTasks), new Queue(innerQ), new PauseUntil(new Map()), null);
+    let appState = new AppState(new TaskCollection(innerAllTasks), new Queue(innerQ, null), new PauseUntil(new Map()), null);
     appState.processAnswerValidation(true);
     expect(appState._queue._hashAndRepetitions[0].taskHash).toEqual('1');
     expect(appState._queue._hashAndRepetitions[0].correctInARow).toEqual(4);

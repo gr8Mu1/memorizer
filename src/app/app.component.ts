@@ -100,15 +100,16 @@ export class AppComponent {
       reader.onloadend = () => {
         // TODO think about a more elegant way to revive the objects, no import of Queue etc. should be necessary
         let imported = JSON.parse(reader.result as string, reviver);
-        this.appState._queue = new Queue(imported._queue._hashAndRepetitions);
+        this.appState._queue = new Queue(imported._queue._hashAndRepetitions, imported._queue._nextRebuildDate);
         let tasks: Task[] = [];
         imported._allTasks._taskByHash.forEach((value) => tasks.push(value));
         let taskCollection: TaskCollection = new TaskCollection(new Map());
         taskCollection.addTasks(tasks);
         this.appState._allTasks = taskCollection;
-        let pauseUntil: PauseUntil = new PauseUntil(new Map());
-        pauseUntil.replaceData(imported._pauseUntil._dateAndCountByTaskHash);
-        this.appState._pauseUntil = pauseUntil;
+        this.appState._pauseUntil = new PauseUntil(imported._pauseUntil._dateAndCountByTaskHash);
+        if (this.appState.shouldRebuildQueueForToday()) {
+          this.appState.rebuildQueue();
+        }
         this.updateViewModel();
       };
       reader.readAsText(event.target.files[0]);
@@ -121,6 +122,9 @@ export class AppComponent {
     this.updateViewModel();
   }
 
+  forceQueueRebuild() {
+    this.appState.rebuildQueue();
+  }
 }
 
 function replacer(key, value) {
@@ -135,10 +139,13 @@ function replacer(key, value) {
 }
 
 function reviver(key, value) {
+  const dateFormat: RegExp = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d*)*Z/;
   if(typeof value === 'object' && value !== null) {
     if (value.dataType === 'Map') {
       return new Map(value.value);
     }
+  } else if (typeof value === "string" && dateFormat.test(value)) {
+    return new Date(value);
   }
   return value;
 }

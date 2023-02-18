@@ -3,8 +3,9 @@ export class Queue {
   private _nextRebuildDate: Date;
   _hashAndRepetitions: HashAndRepetitions[];
 
-  constructor(hashAndRepetitions: HashAndRepetitions[]) {
+  constructor(hashAndRepetitions: HashAndRepetitions[], nextRebuildDate: Date) {
     this._hashAndRepetitions = hashAndRepetitions;
+    this._nextRebuildDate = nextRebuildDate;
   }
 
   /**
