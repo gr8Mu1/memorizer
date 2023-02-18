@@ -20,7 +20,6 @@ export class PauseUntil {
   }
 
   public filterAvailable(taskHashes: string[]): string[] {
-    // TODO write a test
     let today = new Date();
     return taskHashes.filter((taskHash) => (this._dateAndCountByTaskHash.has(taskHash))
       ? this._dateAndCountByTaskHash.get(taskHash).date < today

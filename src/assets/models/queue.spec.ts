@@ -14,7 +14,8 @@ describe('Queue', () => {
       {taskHash:'4', correctInARow:0},
       ]
     )
-    q.updateFromAnswer(false);
+    let hash = q.updateFromAnswer(false);
+    expect(hash).toBeNull();
     expect(q._hashAndRepetitions[0].taskHash).toEqual('2');
     expect(q._hashAndRepetitions[1].taskHash).toEqual('1');
     expect(q._hashAndRepetitions[2].taskHash).toEqual('3');
@@ -29,7 +30,8 @@ describe('Queue', () => {
       {taskHash:'4', correctInARow:0},
       ]
     )
-    q.updateFromAnswer(true);
+    let hash = q.updateFromAnswer(true);
+    expect(hash).toBeNull();
     expect(q._hashAndRepetitions[0].taskHash).toEqual('2');
     expect(q._hashAndRepetitions[1].taskHash).toEqual('3');
     expect(q._hashAndRepetitions[2].taskHash).toEqual('1');
