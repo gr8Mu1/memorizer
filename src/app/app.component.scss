@@ -4,6 +4,12 @@
 :host {
   height: 100%;
 }
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  justify-content: space-between;
+}
 .main-container{
   background:
     linear-gradient(217deg, rgba(255,0,0,.7), rgba(255,0,0,0) 70.71%),

@@ -56,9 +56,11 @@
       <input hidden (change)="importQuestionAnswerPairsFromTxtFile($event)" #importQuestionAnswerFileInput type="file">
       <hr>
       <p>import/export app state</p>
-      <button mat-raised-button (click)="exportAppState()">Export AppState</button>
-      <button type="button" mat-raised-button (click)="importAppStateFileInput.click()">Import AppState</button>
-      <input hidden (change)="importAppState($event)" #importAppStateFileInput type="file">
+      <div class="button-group">
+        <button mat-raised-button (click)="exportAppState()">Export AppState</button>
+        <button type="button" mat-raised-button (click)="importAppStateFileInput.click()">Import AppState</button>
+        <input hidden (change)="importAppState($event)" #importAppStateFileInput type="file">
+      </div>
       <hr>
       <h3>Tags</h3>
       <p>Import tags from *.txt file. Each line defines a tag: shortName --- description</p>
@@ -74,10 +76,13 @@
         Options selected: {{selected.selectedOptions.selected.length}}
       </p>
       <p>Import txt file and add the selected tags</p>
-      <button type="button" mat-raised-button (click)="importPairsWithSelectedTags.click()">Import Pairs with Selected Tags</button>
-      <input hidden (change)="importQuestionAnswerPairsFromTxtFile($event, true)" #importPairsWithSelectedTags type="file">
+      <div class="button-group">
+        <button type="button" mat-raised-button (click)="importPairsWithSelectedTags.click()">Import Pairs with Selected Tags</button>
+        <input hidden (change)="importQuestionAnswerPairsFromTxtFile($event, true)" #importPairsWithSelectedTags type="file">
 
-      <button mat-raised-button (click)="prioritizeQueue()">Prioritize Queue According to Selected Tags</button>
+        <button mat-raised-button (click)="prioritizeQueue()">Prioritize Queue According to Selected Tags</button>
+      </div>
+      <h3>Queue</h3>
       <button mat-raised-button (click)="forceQueueRebuild()">Force Queue Rebuild</button>
 
     </div>
