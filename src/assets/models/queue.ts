@@ -105,6 +105,10 @@ export class Queue {
     }
     this._hashAndRepetitions = hashRep;
   }
+
+  removeCurrent() {
+    this._hashAndRepetitions.splice(0, 1);
+  }
 }
 
 export interface HashAndRepetitions {

@@ -90,4 +90,12 @@ export class AppState {
   public getAvailableTags(): Tag[] {
     return this._allTags.getAllTags();
   }
+
+  deleteCurrentPair() {
+    let currentHash = this._queue.getCurrentHash();
+    this._queue.removeCurrent();
+    this._allTasks.remove(currentHash);
+    this._pauseUntil.remove(currentHash);
+    this._allTags.removeAllTagsFromTask(currentHash);
+  }
 }

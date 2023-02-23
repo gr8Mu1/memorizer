@@ -125,6 +125,11 @@ export class AppComponent {
   forceQueueRebuild() {
     this.appState.rebuildQueue();
   }
+
+  deleteCurrentPair() {
+    this.appState.deleteCurrentPair();
+    this.updateViewModel();
+  }
 }
 
 function replacer(key, value) {

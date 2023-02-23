@@ -83,8 +83,10 @@
         <button mat-raised-button (click)="prioritizeQueue()">Prioritize Queue According to Selected Tags</button>
       </div>
       <h3>Queue</h3>
-      <button mat-raised-button (click)="forceQueueRebuild()">Force Queue Rebuild</button>
-
+      <div class="button-group">
+        <button mat-raised-button (click)="forceQueueRebuild()">Force Queue Rebuild</button>
+        <button mat-raised-button (click)="deleteCurrentPair()">Delete Current Question/Answer Pair</button>
+      </div>
     </div>
   </section>
 </div>
