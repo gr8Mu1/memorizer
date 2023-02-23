@@ -25,6 +25,10 @@ export class PauseUntil {
       ? this._dateAndCountByTaskHash.get(taskHash).date < today
       : true);
   }
+
+  public remove(taskHash: string) {
+    this._dateAndCountByTaskHash.delete(taskHash);
+  }
 }
 
 export interface DateAndCount {

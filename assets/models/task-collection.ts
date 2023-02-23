@@ -21,6 +21,10 @@ export class TaskCollection {
     return [addedHashes, allHashesTriedToAdd];
   }
 
+  public remove(currentHash: string) {
+    this._taskByHash.delete(currentHash);
+  }
+
   public removeTasks(tasks: Task[]): void {
     for (const task of tasks) {
       this._taskByHash.delete(this.computeHash(task));
