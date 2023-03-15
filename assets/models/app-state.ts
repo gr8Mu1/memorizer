@@ -34,7 +34,7 @@ export class AppState {
     });
     let [addedTaskHashes, allTaskHashes] = this._allTasks.addTasks(tasks);
     let filteredHashes = this._pauseUntil.filterAvailable(addedTaskHashes);
-    this._queue.addHashes(filteredHashes, true); // TODO add UI element to select priority
+    this._queue.addHasheAndRepetitions(filteredHashes);
     if (!tags) {
       return;
     }
@@ -74,7 +74,7 @@ export class AppState {
     let allHashes = this._allTasks.getAllHashes();
     let filteredHashes = this._pauseUntil.filterAvailable(allHashes);
     this._queue.clear();
-    this._queue.addHashes(filteredHashes, true);
+    this._queue.addHasheAndRepetitions(filteredHashes);
     this._queue.updateNextRebuildDate();
   }
 
