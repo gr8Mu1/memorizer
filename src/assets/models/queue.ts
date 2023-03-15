@@ -40,20 +40,25 @@ export class Queue {
 
   public clear() {
     this._hashAndRepetitions = [];
+    this._nextRebuildDate = null;
   }
 
-  public addHashes(hashes: string[], highPriority: boolean=false) {
+  public addHashes(hashes: string[]) {
     if (!hashes) {
       return;
     }
     let added: HashAndRepetitions[] = [];
     hashes.forEach(key => added.push({taskHash: key, correctInARow: 0}));
 
-    if (highPriority){
-      this._hashAndRepetitions = [...added, ...this._hashAndRepetitions];
-    } else {
-      this._hashAndRepetitions = [...this._hashAndRepetitions, ...added];
+    this._hashAndRepetitions = [...added, ...this._hashAndRepetitions];
+  }
+
+  public addHasheAndRepetitions(toAdd: HashAndRepetitions[]) {
+    if (!toAdd) {
+      return;
     }
+
+    this._hashAndRepetitions = [...toAdd, ...this._hashAndRepetitions];
   }
 
   private newPositionFromAnswerCount(x: number): number {
